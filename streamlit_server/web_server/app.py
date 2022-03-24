@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
+!pip install geopy
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import pandas as pd
