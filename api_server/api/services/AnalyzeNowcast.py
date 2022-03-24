@@ -1,7 +1,7 @@
 import os
 os.environ["HDF5_USE_FILE_LOCKING"]='FALSE'
 import sys
-sys.path.append('../neurips-sevir/src/')
+sys.path.append('../models/neurips-2020-sevir/src')
 import h5py
 import tensorflow as tf
 import numpy as np
@@ -13,25 +13,29 @@ from matplotlib.lines import Line2D
 import matplotlib.patches as patches
 import pandas as pd
 
+import sys
+module_path = '../models/neurips-2020-sevir/src'
+sys.path.insert(0,module_path)
+
 from display.display import get_cmap
 
 # Load pretrained nowcasting models
-mse_file  = '../neurips-sevir/models/nowcast/mse_model.h5'
+mse_file  = '../models/neurips-2020-sevir/models/nowcast/mse_model.h5'
 mse_model = tf.keras.models.load_model(mse_file,compile=False,custom_objects={"tf": tf})
 
-style_file = '../neurips-sevir/models/nowcast/style_model.h5'
+style_file = '../models/neurips-2020-sevir/models/nowcast/style_model.h5'
 style_model = tf.keras.models.load_model(style_file,compile=False,custom_objects={"tf": tf})
 
-mse_style_file = '../neurips-sevir/models/nowcast/mse_and_style.h5'
+mse_style_file = '../models/neurips-2020-sevir/models/nowcast/mse_and_style.h5'
 mse_style_model = tf.keras.models.load_model(mse_style_file,compile=False,custom_objects={"tf": tf})
 
-gan_file = '../neurips-sevir/models/nowcast/gan_generator.h5'
+gan_file = '../models/neurips-2020-sevir/models/nowcast/gan_generator.h5'
 gan_model = tf.keras.models.load_model(gan_file,compile=False,custom_objects={"tf": tf})
 
 
 # Load a part of the test dataset
 from readers.nowcast_reader import read_data
-x_test,y_test = read_data('../neurips-sevir/data/interim/nowcast_testing.h5',end=50)
+x_test,y_test = read_data('../models/neurips-2020-sevir/data/interim/nowcast_testing.h5',end=50)
 
 
 ## 
@@ -62,7 +66,7 @@ def plot_hit_miss_fa(ax,y_true,y_pred,thres):
 
 
 def visualize_result(models,x_test,y_test,idx,ax,labels):
-    fs=10
+    fs=9
     cmap_dict = lambda s: {'cmap':get_cmap(s,encoded=True)[0],
                            'norm':get_cmap(s,encoded=True)[1],
                            'vmin':get_cmap(s,encoded=True)[2],
@@ -123,10 +127,8 @@ def visualize_result(models,x_test,y_test,idx,ax,labels):
     ax[-1][-1].legend(handles=legend_elements, loc='lower right', bbox_to_anchor= (-5.4, -.35), 
                            ncol=5, borderaxespad=0, frameon=False, fontsize='16')
     plt.subplots_adjust(hspace=0.05, wspace=0.05)
+    plt.show()
     
-
-
-idx=25 # adjust this to pick a case
+idx=12
 fig,ax = plt.subplots(4,13,figsize=(24,8), gridspec_kw={'width_ratios': [1,.2,1,.2,1,1,1,1,1,1,1,1,1]})
 visualize_result([mse_model,style_model,mse_style_model,gan_model],x_test,y_test,idx,ax,labels=['MSE','SC','MSE+SC','cGAN+MAE'])
-

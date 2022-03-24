@@ -12,11 +12,11 @@ subprocess.check_call([sys.executable, '-m', 'pip', 'install',
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 
-API_URL = 'http://127.0.0.1:8000/event'
+API_URL = 'http://2e58-34-74-102-167.ngrok.io/event'
 
 txt = st.text_input('Location', '')
 
-df_catalog = pd.read_csv('streamlit_server/web_server/catlog_data.csv')
+df_catalog = pd.read_csv('./catlog_data.csv')
 images_dir = 'images/'
 
 def get_coordinates(location):
@@ -44,19 +44,24 @@ def get_event_id(lat,long):
     return event_id
 
 
+
+
 if st.button('Submit'):
     lat,long = get_coordinates(txt)
     event_id = get_event_id(lat,long)
     st.write(event_id)
-    params = {"event_id": event_id}
+    params = {"idx_id": str(event_id)[-2:]}
     r = requests.get(API_URL,params=params)
-    r_json = r.json()
-    if r_json:
-        image_b64 = r_json.get('data')
-        with open(os.path.join(images_dir, 'image.png'), "wb") as file:
-            file.write(base64.b64decode(image_b64))
+    try:
+        r_json = r.json()
+        if r_json:
+            image_b64 = r_json.get('data')
+            with open(os.path.join(images_dir, 'image.png'), "wb") as file:
+                file.write(base64.b64decode(image_b64))
 
-        st.image(os.path.join(images_dir, 'image.png'))
+            st.image(os.path.join(images_dir, 'image.png'))
+    except:
+        st.write(f'No records found for {txt}')
 
 
 
