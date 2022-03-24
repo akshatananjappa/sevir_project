@@ -1,11 +1,16 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from geopy.geocoders import Nominatim
-from geopy.distance import geodesic
 import pandas as pd
 import requests
 import base64
 import os
+import sys
+import subprocess
+
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
+'geopy'])
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
 
 API_URL = 'http://127.0.0.1:8000/event'
 
