@@ -16,7 +16,7 @@ API_URL = 'http://2e58-34-74-102-167.ngrok.io/event'
 
 txt = st.text_input('Location', '')
 
-df_catalog = pd.read_csv('./catlog_data.csv')
+df_catalog = pd.read_csv('/sevir_project/streamlit_server/web_server/catlog_data.csv')
 images_dir = 'images/'
 
 def get_coordinates(location):
