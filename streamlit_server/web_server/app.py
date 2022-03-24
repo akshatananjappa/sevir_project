@@ -16,7 +16,7 @@ API_URL = 'http://127.0.0.1:8000/event'
 
 txt = st.text_input('Location', '')
 
-df_catalog = pd.read_csv('./catlog_data.csv')
+df_catalog = pd.read_csv('streamlit_server/web_server/')
 images_dir = 'images/'
 
 def get_coordinates(location):
