@@ -6,6 +6,7 @@ import base64
 import os
 import sys
 import subprocess
+import traceback
 
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
 'geopy'])
@@ -61,7 +62,9 @@ if st.button('Submit'):
 
             st.image(os.path.join(images_dir, 'image.png'))
     except:
+        print(traceback.format_exc())
         st.write(f'No records found for {txt}')
+
 
 
 
