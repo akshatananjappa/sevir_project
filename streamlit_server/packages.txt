@@ -1,0 +1,5 @@
+streamlit==1.7.0
+pandas==1.4.1
+geopy==2.2.0
+requests==2.27.1
+
