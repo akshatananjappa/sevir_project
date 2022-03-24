@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 import os
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,Response
 import base64
 from services.events import get_all_events, get_event_by_location
 
@@ -35,3 +35,20 @@ def query(request: Request, location: str = ""):
     except Exception as e:
         print(e)
     return response
+
+
+@app.get('/event')
+def event_query(request: Request, event_id: str = ""):
+    try:
+        """
+        Accepts an Event ID 
+        """
+        image_path = os.path.join(ARTIFACT_INTERIM_DIRECTORY, event_id, 'image.png')
+        with open(image_path, "rb") as file:
+            image_bytes: bytes = base64.b64encode(file.read())
+            
+        return {"data": image_bytes}
+    except Exception as e:
+        print(e)
+        image_bytes = None
+        return None

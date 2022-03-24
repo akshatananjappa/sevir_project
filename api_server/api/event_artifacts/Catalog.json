@@ -9,7 +9,7 @@
     "event_type": "Flood",
     "llcrnrlat": 29.86291091,
     "llcrnrlon": -100.8555301,
-    "location": "Florida"
+    "location": "Kansas"
   },
   {
     "id": "S834603",
@@ -33,7 +33,7 @@
     "event_type": "Flood",
     "llcrnrlat": 29.86291091,
     "llcrnrlon": -100.8555301,
-    "location": "South Carolina"
+    "location": "Illiois"
   },
   {
     "id": "S831344",
@@ -45,7 +45,7 @@
     "event_type": "Thunderstorm Wind",
     "llcrnrlat": 38.5301158,
     "llcrnrlon": -95.44742733,
-    "location": "Anaheim"
+    "location": "Ohio"
   },
   {
     "id": "S821019",
@@ -57,7 +57,7 @@
     "event_type": "Thunderstorm Wind",
     "llcrnrlat": 28.83119954,
     "llcrnrlon": -91.9161975,
-    "location": "West Virginia"
+    "location": "Texas"
   },
   {
     "id": "S821019",
@@ -69,7 +69,7 @@
     "event_type": "Thunderstorm Wind",
     "llcrnrlat": 28.83119954,
     "llcrnrlon": -91.9161975,
-    "location": "East Virginia"
+    "location": "Oregon"
   },
   {
     "id": "S821019",
@@ -81,7 +81,7 @@
     "event_type": "Thunderstorm Wind",
     "llcrnrlat": 28.83119954,
     "llcrnrlon": -91.9161975,
-    "location": "North Carolina"
+    "location": "Wyoming"
   },
   {
     "id": "S821019",
@@ -93,7 +93,7 @@
     "event_type": "Thunderstorm Wind",
     "llcrnrlat": 28.83119954,
     "llcrnrlon": -91.9161975,
-    "location": "Seattle"
+    "location": ""
   },
   {
     "id": "S830464",
