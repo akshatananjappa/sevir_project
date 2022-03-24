@@ -7,6 +7,7 @@ import os
 import sys
 import subprocess
 import traceback
+import random
 
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
 'geopy'])
@@ -51,7 +52,8 @@ if st.button('Submit'):
     lat,long = get_coordinates(txt)
     event_id = get_event_id(lat,long)
     st.write(event_id)
-    params = {"idx_id": str(event_id)[-2:]}
+    #params = {"idx_id": str(event_id)[-2:]}
+    params = {"idx_id": random.randrange(10,50)}
     r = requests.get(API_URL,params=params)
     try:
         r_json = r.json()
