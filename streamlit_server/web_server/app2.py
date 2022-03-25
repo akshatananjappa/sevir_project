@@ -20,6 +20,7 @@ API_URL = os.environ.get('API_URL') + '/event'
 txt = st.text_input('Location', '')
 
 df_catalog = pd.read_csv('streamlit_server/web_server/catlog_data.csv')
+#df_catalog = pd.read_csv('./catlog_data.csv')
 images_dir = './'
 
 def get_coordinates(location):
@@ -30,6 +31,7 @@ def get_coordinates(location):
 
 def get_event_id(lat,long):
     max = 10000000
+    event_id = None
 
     for i in range(0, len(df_catalog)):
         targ = (df_catalog.at[i, 'llcrnrlat'], df_catalog.at[i, 'llcrnrlon'])
@@ -147,31 +149,34 @@ class TestWeatherMethods(unittest.TestCase):
 
 
 if st.button('Submit'):
-
-    if txt == '' or txt.isnumeric() or txt.isalnum():
+    
+    if txt == '' or txt.isnumeric():
         # try to print an error message on frontend
         st.write("Wrong Input")
 
     else:
         lat,long = get_coordinates(txt)
         
-        event_id = get_event_id(lat,long)
+        max,event_id = get_event_id(lat,long)
+        
+        if event_id:
+            st.write(event_id)
+            #params = {"idx_id": str(event_id)[-2:]}
+            params = {"idx_id": random.randrange(10,50)}
+            r = requests.get(API_URL,params=params)
+            try:
+                r_json = r.json()
+                if r_json:
+                    image_b64 = r_json.get('data')
+                    with open(os.path.join(images_dir, 'image.png'), "wb") as file:
+                        file.write(base64.b64decode(image_b64))
 
-        st.write(event_id)
-        #params = {"idx_id": str(event_id)[-2:]}
-        params = {"idx_id": random.randrange(10,50)}
-        r = requests.get(API_URL,params=params)
-        try:
-            r_json = r.json()
-            if r_json:
-                image_b64 = r_json.get('data')
-                with open(os.path.join(images_dir, 'image.png'), "wb") as file:
-                    file.write(base64.b64decode(image_b64))
-
-                st.image(os.path.join(images_dir, 'image.png'))
-        except:
-            print(traceback.format_exc())
-            st.write(f'No records found for {txt}')
+                    st.image(os.path.join(images_dir, 'image.png'))
+            except:
+                print(traceback.format_exc())
+                st.write(f'No records found for {txt}')
+        else:
+            st.write("Location not found")
 
 
 
