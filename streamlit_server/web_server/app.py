@@ -14,7 +14,7 @@ subprocess.check_call([sys.executable, '-m', 'pip', 'install',
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 
-API_URL = 'http://ab29-34-74-102-167.ngrok.io/event'
+API_URL = 'http://3f57-34-74-102-167.ngrok.io/event'
 
 txt = st.text_input('Location', '')
 
