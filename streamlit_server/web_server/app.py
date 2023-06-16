@@ -143,7 +143,7 @@ class TestWeatherMethods(unittest.TestCase):
         coordinates = get_coordinates(location)
         max, event = get_event_id(lat,long)
         self.assertEqual(event, 841365)
-        #image part can be added checking if the generated image matches the output image on the frontend
+        #image part can be added checking if the generated image matches the output image on the frontend or not
 
 
 
